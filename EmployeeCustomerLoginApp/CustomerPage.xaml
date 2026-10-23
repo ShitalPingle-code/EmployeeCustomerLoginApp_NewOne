@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EmployeeCustomerLoginApp.CustomerPage"
+    Title="Customer Management"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                      Dark={StaticResource OffBlack}}">
+
+    <ScrollView VerticalScrollBarVisibility="Always"
+                HorizontalScrollBarVisibility="Never">
+
+        <VerticalStackLayout
+            Padding="16"
+            Spacing="12"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="480">
+
+            <!-- Single visible page heading -->
+            <Label
+                Text="Customer Management"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Fill"
+                Margin="0,0,0,4" />
+
+            <!-- Customer Form -->
+            <Border
+                Padding="14"
+                Stroke="{AppThemeBinding Light={StaticResource Gray300},
+                                         Dark={StaticResource Gray600}}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HorizontalOptions="Fill">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label
+                        Text="Customer ID"
+                        FontSize="12"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="CustomerIdEntry"
+                        Placeholder="Customer ID"
+                        Keyboard="Numeric"
+                        IsReadOnly="True"
+                        FontSize="13"
+                        HeightRequest="38"
+                        Margin="0" />
+
+                    <Label
+                        Text="Customer Name"
+                        FontSize="12"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="CustomerNameEntry"
+                        Placeholder="Enter customer name"
+                        FontSize="13"
+                        HeightRequest="38"
+                        Margin="0" />
+
+                    <Label
+                        Text="Email Address"
+                        FontSize="12"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="EmailEntry"
+                        Placeholder="Enter email address"
+                        Keyboard="Email"
+                        FontSize="13"
+                        HeightRequest="38"
+                        Margin="0" />
+
+                    <Label
+                        Text="Mobile Number"
+                        FontSize="12"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="MobileEntry"
+                        Placeholder="Enter mobile number"
+                        Keyboard="Telephone"
+                        FontSize="13"
+                        HeightRequest="38"
+                        Margin="0" />
+
+                    <Label
+                        Text="City"
+                        FontSize="12"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="CityEntry"
+                        Placeholder="Enter city"
+                        FontSize="13"
+                        HeightRequest="38"
+                        Margin="0" />
+
+                    <!-- Small buttons centered in one line -->
+                    <Grid
+                        ColumnDefinitions="Auto,Auto"
+                        ColumnSpacing="10"
+                        HorizontalOptions="Center"
+                        Margin="0,8,0,2">
+
+                        <Button
+                            Grid.Column="0"
+                            Text="Add Customer"
+                            Clicked="OnAddCustomerClicked"
+                            FontSize="11"
+                            Padding="10,5"
+                            HeightRequest="34"
+                            MinimumWidthRequest="110"
+                            CornerRadius="7" />
+
+                        <Button
+                            Grid.Column="1"
+                            Text="Customer List"
+                            Clicked="OnLoadCustomersClicked"
+                            FontSize="11"
+                            Padding="10,5"
+                            HeightRequest="34"
+                            MinimumWidthRequest="110"
+                            CornerRadius="7" />
+
+                    </Grid>
+
+                    <ActivityIndicator
+                        x:Name="LoadingIndicator"
+                        IsRunning="False"
+                        IsVisible="False"
+                        HorizontalOptions="Center"
+                        Scale="0.8" />
+
+                    <Label
+                        x:Name="MessageLabel"
+                        FontSize="11"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Customer List heading -->
+            <Label
+                Text="Customer List"
+                FontSize="16"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Fill"
+                Margin="0,2,0,0" />
+
+            <!-- Customer Cards -->
+            <CollectionView
+                x:Name="CustomersCollectionView"
+                SelectionMode="None"
+                ItemsLayout="VerticalList"
+                HorizontalOptions="Fill"
+                HeightRequest="400">
+
+                <CollectionView.EmptyView>
+                    <Label
+                        Text="No customers to display."
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Fill"
+                        Padding="12" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border
+                            Padding="12"
+                            Margin="0,3,0,5"
+                            Stroke="{AppThemeBinding Light={StaticResource Gray300},
+                                                     Dark={StaticResource Gray600}}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 9"
+                            HorizontalOptions="Fill">
+
+                            <VerticalStackLayout Spacing="5">
+
+                                <Label
+                                    Text="{Binding CustomerName}"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    LineBreakMode="WordWrap" />
+
+                                <Label
+                                    Text="{Binding CustomerId,
+                                        StringFormat='Customer ID: {0}'}"
+                                    FontSize="11" />
+
+                                <Label
+                                    Text="{Binding EmailAddress}"
+                                    FontSize="12"
+                                    LineBreakMode="WordWrap" />
+
+                                <Label
+                                    Text="{Binding MobileNumber,
+                                        StringFormat='Mobile: {0}'}"
+                                    FontSize="12" />
+
+                                <Label
+                                    Text="{Binding City,
+                                        StringFormat='City: {0}'}"
+                                    FontSize="12" />
+
+                                <Button
+                                    Text="Select Customer"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="OnSelectCustomerClicked"
+                                    FontSize="11"
+                                    Padding="10,4"
+                                    HeightRequest="32"
+                                    WidthRequest="140"
+                                    HorizontalOptions="Center"
+                                    CornerRadius="7"
+                                    Margin="0,3,0,0" />
+
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

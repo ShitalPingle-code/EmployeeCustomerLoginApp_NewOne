@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="EmployeeCustomerLoginApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:EmployeeCustomerLoginApp"
+    FlyoutBehavior="Flyout">
+
+    <!-- Employee Login -->
+    <ShellContent
+        Title="Login"
+        Route="MainPage"
+        ContentTemplate="{DataTemplate local:MainPage}" />
+
+    <!-- Customer Management -->
+    <ShellContent
+        Title="Customer Management"
+        Route="CustomerPage"
+        ContentTemplate="{DataTemplate local:CustomerPage}" />
+
+    <!-- Logout menu option -->
+    <MenuItem
+        Text="Logout"
+        Clicked="OnLogoutClicked" />
+
+</Shell>
